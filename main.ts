@@ -15,7 +15,22 @@ installGlobals();
  * @type {Map<string, firebase.User>} */
 const users = new Map();
 
-function igniteFire(configs: any) {
+interface DenoFireConfig {
+  accountConfig: Object<{
+    apiKey: string,
+    authDomain: string,
+    projectId: string,
+    storageBucket: string,
+    messagingSenderId: string,
+    appId: string
+  }>,
+  firestoreConfig: Object<{
+    email: string,
+    password: string
+  }>,
+}
+
+function igniteFire(configs: DenoFireConfig) {
   const {
     accountConfig,
     firestoreConfig: { email, password },
@@ -25,7 +40,7 @@ function igniteFire(configs: any) {
   const auth = firebase.auth(firebaseApp);
   const db = firebase.firestore(firebaseApp);
 
-  const DenoFireMiddleware = (ctx, next) => {
+  const DenoFireMiddleware = async (ctx, next) => {
     const signedInUid = ctx.cookies.get("LOGGED_IN_UID");
     const signedInUser = signedInUid != null ? users.get(signedInUid) : undefined;
     if (!signedInUid || !signedInUser || !auth.currentUser) {
@@ -46,6 +61,7 @@ function igniteFire(configs: any) {
   }
 
   return {
+    DenoFireConfig,
     firebase,
     auth,
     DenoFireMiddleware,
