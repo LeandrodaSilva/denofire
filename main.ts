@@ -61,7 +61,6 @@ function igniteFire(configs: DenoFireConfig) {
   }
 
   return {
-    DenoFireConfig,
     firebase,
     auth,
     DenoFireMiddleware,
@@ -72,5 +71,6 @@ function igniteFire(configs: DenoFireConfig) {
 }
 
 export default {
-  igniteFire
+  igniteFire,
+  DenoFireConfig
 };
