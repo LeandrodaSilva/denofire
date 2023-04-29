@@ -15,22 +15,7 @@ installGlobals();
  * @type {Map<string, firebase.User>} */
 const users = new Map();
 
-interface DenoFireConfig {
-  accountConfig: Object<{
-    apiKey: string,
-    authDomain: string,
-    projectId: string,
-    storageBucket: string,
-    messagingSenderId: string,
-    appId: string
-  }>,
-  firestoreConfig: Object<{
-    email: string,
-    password: string
-  }>,
-}
-
-function igniteFire(configs: DenoFireConfig) {
+export function igniteFire(configs: any) {
   const {
     accountConfig,
     firestoreConfig: { email, password },
@@ -69,8 +54,3 @@ function igniteFire(configs: DenoFireConfig) {
     virtualStorage
   }
 }
-
-export default {
-  igniteFire,
-  DenoFireConfig
-};
