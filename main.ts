@@ -55,4 +55,6 @@ function igniteFire(configs: any) {
   }
 }
 
-export default igniteFire;
+export default {
+  igniteFire
+};
